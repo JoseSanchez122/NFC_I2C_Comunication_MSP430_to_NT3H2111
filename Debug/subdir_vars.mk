@@ -9,26 +9,32 @@ CMD_SRCS += \
 ../lnk_msp430fr6045.cmd 
 
 C_SRCS += \
+../NFC.c \
 ../UART.c \
 ../main.c 
 
 C_DEPS += \
+./NFC.d \
 ./UART.d \
 ./main.d 
 
 OBJS += \
+./NFC.obj \
 ./UART.obj \
 ./main.obj 
 
 OBJS__QUOTED += \
+"NFC.obj" \
 "UART.obj" \
 "main.obj" 
 
 C_DEPS__QUOTED += \
+"NFC.d" \
 "UART.d" \
 "main.d" 
 
 C_SRCS__QUOTED += \
+"../NFC.c" \
 "../UART.c" \
 "../main.c" 
 

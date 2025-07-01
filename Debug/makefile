@@ -10,6 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./NFC.obj" \
 "./UART.obj" \
 "./main.obj" \
 "../lnk_msp430fr6045.cmd" \
@@ -144,8 +145,8 @@ Prueba_NFC_I2C_Comunication.c.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "UART.obj" "main.obj" 
-	-$(RM) "UART.d" "main.d" 
+	-$(RM) "NFC.obj" "UART.obj" "main.obj" 
+	-$(RM) "NFC.d" "UART.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

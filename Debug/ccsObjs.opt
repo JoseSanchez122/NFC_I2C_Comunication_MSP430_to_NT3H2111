@@ -1,3 +1,4 @@
+"./NFC.obj"
 "./UART.obj"
 "./main.obj"
 "../lnk_msp430fr6045.cmd"
