@@ -74,7 +74,7 @@
 
 uint8_t MasterType2 [TYPE_2_LENGTH] = {'F', '4', '1', '9', '2', 'B'};
 uint8_t MasterType1 [TYPE_1_LENGTH] = {8, 9};
-uint8_t MasterType0 [TYPE_0_LENGTH] = {11};
+uint8_t MasterType0 [MAX_BUFFER_SIZE] = {'M','S','P','4','3','0'};
 
 uint8_t SlaveType2 [TYPE_2_LENGTH] = {0};
 uint8_t SlaveType1 [TYPE_1_LENGTH] = {0};
@@ -193,7 +193,7 @@ I2C_Mode I2C_Master_WriteReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_da
     UCB0IE |= UCTXIE;                        // Enable TX interrupt
 
     UCB0CTLW0 |= UCTR + UCTXSTT;             // I2C TX, start condition
-    __bis_SR_register(LPM0_bits + GIE);              // Enter LPM0 w/ interrupts
+    __bis_SR_register(GIE);              // Enter LPM0 w/ interrupts
 
     return MasterMode;
 }
@@ -285,7 +285,7 @@ int main(void) {
     P1IFG &= ~BIT5;           // Limpia bandera
     P1IES |= BIT5;            // Interrupción por flanco de bajada
     P1IE  |= (BIT5);
-    // I2C_Master_WriteReg(SLAVE_ADDR, CMD_TYPE_0_MASTER, MasterType0, TYPE_0_LENGTH);
+    // 
     // I2C_Master_WriteReg(SLAVE_ADDR, CMD_TYPE_1_MASTER, MasterType1, TYPE_1_LENGTH);
     // I2C_Master_WriteReg(SLAVE_ADDR, CMD_TYPE_2_MASTER, MasterType2, TYPE_2_LENGTH);
     while(1){
@@ -297,10 +297,10 @@ int main(void) {
         }
 
         if(READ_UART0_BUFF("WRITE from MSP430")){
-            uartA0_print("WRITE from MSP430");
+            uartA0_print("WRITE from MSP430\n");
             CLEAR_UART0BUFF();
+            I2C_Master_WriteReg(SLAVE_ADDR, 1, MasterType0, MAX_BUFFER_SIZE);
         }
-    
     }
     
     //CopyArray(ReceiveBuffer, SlaveType0, TYPE_0_LENGTH);
